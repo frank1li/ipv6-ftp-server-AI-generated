@@ -7,8 +7,9 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  code-quality:
     runs-on: ubuntu-latest
+    name: Code Quality & Tests
 
     steps:
     - uses: actions/checkout@v3

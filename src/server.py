@@ -1,5 +1,5 @@
-import os
 import hashlib
+import os
 import threading
 
 from pyftpdlib.authorizers import DummyAuthorizer
@@ -62,17 +62,17 @@ class FTPServerHandler:
 
     def add_binary_file(self, filename: str, content: bytes) -> bool:
         """Add a binary file to the FTP server's home directory
-        
+
         Args:
             filename: Name of the file to create
             content: Binary content to write
-            
+
         Returns:
             bool: True if successful, False otherwise
         """
         try:
             filepath = os.path.join(HOME_DIRECTORY, filename)
-            with open(filepath, 'wb') as f:
+            with open(filepath, "wb") as f:
                 f.write(content)
             return True
         except Exception as e:
@@ -81,23 +81,23 @@ class FTPServerHandler:
 
     def get_file_sha256(self, filename: str) -> str:
         """Get SHA256 hash of a file in the FTP server's home directory
-        
+
         Args:
             filename: Name of the file to hash
-            
+
         Returns:
             str: SHA256 hash of the file, or empty string if file not found
         """
         try:
             filepath = os.path.join(HOME_DIRECTORY, filename)
             sha256_hash = hashlib.sha256()
-            with open(filepath, 'rb') as f:
-                for byte_block in iter(lambda: f.read(4096), b''):
+            with open(filepath, "rb") as f:
+                for byte_block in iter(lambda: f.read(4096), b""):
                     sha256_hash.update(byte_block)
             return sha256_hash.hexdigest()
         except Exception as e:
             print(f"Error calculating hash: {e}")
-            return ''
+            return ""
 
 
 def main():

@@ -26,22 +26,23 @@ fi
 # Run format checks/fixes
 if [ $CHECK_ONLY -eq 1 ]; then
     echo "Running black check..."
-    if ! black --check src/; then
+    black --check src/ tests/
+    if ! black --check src/ tests/; then
         echo "Black check failed!"
         exit 1
     fi
 
     echo "Running isort check..."
-    if ! isort --check-only src/; then
+    if ! isort --check-only src/ tests/; then
         echo "Isort check failed!"
         exit 1
     fi
 else
-    echo "Running black format..."
-    black src/
-
-    echo "Running isort format..."
-    isort src/
+    echo "Formatting with black..."
+    black src/ tests/
+    
+    echo "Formatting with isort..."
+    isort src/ tests/
 fi
 
 echo "All checks passed!"

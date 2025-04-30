@@ -26,24 +26,24 @@ if errorlevel 1 (
 :: Run format checks/fixes
 if %CHECK_ONLY%==1 (
     echo Running black check...
-    black --check src/
+    black --check src/ tests/
     if errorlevel 1 (
         echo Black check failed!
         exit /b 1
     )
 
     echo Running isort check...
-    isort --check-only src/
+    isort --check-only src/ tests/
     if errorlevel 1 (
         echo Isort check failed!
         exit /b 1
     )
 ) else (
     echo Formatting with black...
-    black src/
+    black src/ tests/
     
     echo Formatting with isort...
-    isort src/
+    isort src/ tests/
 )
 
 echo All done!
