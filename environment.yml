@@ -1,0 +1,12 @@
+name: ipv6-ftp-server
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - pyftpdlib=1.5.9
+  - pytest=8.3.4
+  # development dependencies
+  - black=23.3.0
+  - isort=5.12.0
+  - pytest=7.3.1
