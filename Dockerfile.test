@@ -1,0 +1,22 @@
+FROM python:3.8-slim
+
+WORKDIR /app
+
+# 安装依赖
+COPY requirements.txt requirements-dev.txt ./
+RUN pip install -r requirements.txt -r requirements-dev.txt
+
+# 复制源代码
+COPY . .
+
+# 安装项目
+RUN pip install -e .
+
+# 创建文件目录
+RUN mkdir -p files
+
+# 设置环境变量
+ENV HOME_DIRECTORY=/app/files
+
+# 设置测试命令
+CMD ["pytest", "tests/", "-v"]

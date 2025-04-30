@@ -14,18 +14,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.8'
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install -r requirements-dev.txt
-        pip install -e .
-      working-directory: .
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v2
 
     - name: Check code formatting
       run: |
@@ -33,7 +23,7 @@ jobs:
         ./scripts/format_check.sh --check
       working-directory: .
 
-    - name: Run tests
+    - name: Build and test
       run: |
-        python -m pytest tests/ -v
-      working-directory: .
+        docker build -t ftp-server-test -f Dockerfile.test .
+        docker run --rm ftp-server-test
